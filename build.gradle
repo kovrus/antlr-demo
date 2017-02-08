@@ -1,0 +1,48 @@
+group 'antlr-demo'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext.antlr = [
+        source : "src/main/antlr",
+        output : "src/main/java/grammar/antlr",
+        package: 'grammar'
+]
+
+configurations {
+    antlr4
+}
+
+dependencies {
+    antlr4 "org.antlr:antlr4:4.5.3"
+    compile "org.antlr:antlr4-runtime:4.5.3"
+}
+
+task antlrOutputDir << {
+    mkdir(antlr.output)
+}
+
+task generateGrammarSource(dependsOn: antlrOutputDir, type: JavaExec) {
+    inputs.dir file(antlr.source)
+    outputs.dir file(antlr.output)
+
+    def grammars = fileTree(antlr.source).include('**/*.g4')
+
+    main = 'org.antlr.v4.Tool'
+    classpath = configurations.antlr4
+    args = ["-o", "${antlr.output}", "-visitor", "-package", antlr.package, grammars.files].flatten()
+}
+
+tasks.withType(JavaCompile) {
+    it.dependsOn generateGrammarSource
+}
+
+clean {
+    delete antlr.output
+}
