@@ -11,8 +11,8 @@ repositories {
 
 ext.antlr = [
         source : "src/main/antlr",
-        output : "src/main/java/grammar/antlr",
-        package: 'grammar'
+        output : "src/main/java/calculator/antlr",
+        package: 'calculator.antlr'
 ]
 
 configurations {

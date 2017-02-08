@@ -1,6 +1,8 @@
-import grammar.GrammarBaseVisitor;
-import grammar.GrammarLexer;
-import grammar.GrammarParser;
+package calculator;
+
+import calculator.antlr.GrammarBaseVisitor;
+import calculator.antlr.GrammarLexer;
+import calculator.antlr.GrammarParser;
 
 public class GrammarVisitorImpl extends GrammarBaseVisitor<Integer> {
 

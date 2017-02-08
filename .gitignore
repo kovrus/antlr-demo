@@ -1,4 +1,4 @@
-src/main/java/grammar/antlr
+src/main/java/calculator/antlr
 /build/
 
 .gradle/
